@@ -1,0 +1,36 @@
+# times=3: 30,30,30,20,20,20,10,10,10
+import spritedrawer
+from copy import deepcopy
+def StrechSprite(SpriteEditing, Times):
+    SpriteEdit = spritedrawer.GetrownumbersSpritedrawer(SpriteEditing)
+    tmp = len(SpriteEdit[0])
+    k = 1
+    for row in SpriteEdit:
+        tmp_list = deepcopy(row)
+        for i in range(tmp):
+            for j in range(Times):
+                row.insert(k, tmp_list[i])
+                k += 1
+            k += 1
+        k = 1
+        # for j in range(Times):
+        #     row.insert(i, row[k])
+        #     i += 1
+        # i += 1
+        # k += 1
+        # print(k)
+        # print(j)
+    print("sprite edit:", SpriteEdit)
+    open(SpriteEditing, 'w').close()  # Clear the file before writing
+    for row in SpriteEdit:
+        with open(SpriteEditing, 'a') as file:
+            file.write(','.join(row) + '\n')
+def size(SpriteEditing, Times):
+    StrechSprite("videochip/test.txt",10)
+    # SpriteEditing: 
+    SpriteEdit = spritedrawer.GetrownumbersSpritedrawer(SpriteEditing)
+     
+    # first we will take each row and take each item ex, 10,20, and add however many more times we want to add: ex: 10,10,10 becomes 10,10,10,10,10,10,10,10,10 if we were to size it by 3.
+    #aftewards, we'll take each row and add a new item each time.
+
+size("videochip/test.txt",1)
