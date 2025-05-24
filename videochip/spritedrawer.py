@@ -1,36 +1,50 @@
-# times=3: 30,30,30,20,20,20,10,10,10
-import spritedrawer
-from copy import deepcopy
-def StrechSprite(SpriteEditing, Times):
-    SpriteEdit = spritedrawer.GetrownumbersSpritedrawer(SpriteEditing)
-    tmp = len(SpriteEdit[0])
-    k = 1
-    for row in SpriteEdit:
-        tmp_list = deepcopy(row)
-        for i in range(tmp):
-            for j in range(Times):
-                row.insert(k, tmp_list[i])
-                k += 1
-            k += 1
-        k = 1
-        # for j in range(Times):
-        #     row.insert(i, row[k])
-        #     i += 1
-        # i += 1
-        # k += 1
-        # print(k)
-        # print(j)
-    print("sprite edit:", SpriteEdit)
-    open(SpriteEditing, 'w').close()  # Clear the file before writing
-    for row in SpriteEdit:
-        with open(SpriteEditing, 'a') as file:
-            file.write(','.join(row) + '\n')
-def size(SpriteEditing, Times):
-    StrechSprite("videochip/test.txt",10)
-    # SpriteEditing: 
-    SpriteEdit = spritedrawer.GetrownumbersSpritedrawer(SpriteEditing)
-     
-    # first we will take each row and take each item ex, 10,20, and add however many more times we want to add: ex: 10,10,10 becomes 10,10,10,10,10,10,10,10,10 if we were to size it by 3.
-    #aftewards, we'll take each row and add a new item each time.
+from PIL import Image
+from lookuptable import SetcolourGraphicsDrawing
 
-size("videochip/test.txt",1)
+def GetrownumbersSpritedrawer(FilepathSpritedrawer):
+    #opens up the file and reads the lines
+    with open(FilepathSpritedrawer, 'r') as file:
+        RowsSprite = file.readlines()
+        #removes white space, splits the lines by commas. It does this for each line in the file.
+        row_numbers = [line.strip().split(",") for line in RowsSprite]
+        print(row_numbers)
+        return row_numbers
+
+def SizefinderSpritedrawer(FilepathSpritedrawer):
+    #opens up the file and reads the lines
+    row_numbers = GetrownumbersSpritedrawer(FilepathSpritedrawer)
+    #finds the length of the longest line
+    LengthSprite = max(len(line) for line in row_numbers)
+    WidthSprite = len(row_numbers)
+
+    #returns the length and width
+    print(LengthSprite, WidthSprite)
+    return LengthSprite, WidthSprite
+    
+def DrawConsole(FilepathGraphics):
+    LengthSprite, WidthSprite = SizefinderSpritedrawer(FilepathGraphics)
+    img = Image.new("RGB", (LengthSprite, WidthSprite), "white")
+    RownumbersSize = GetrownumbersSpritedrawer(FilepathGraphics)
+    RownumberDrawer = 0
+    for item in RownumbersSize:
+        print(item)
+        CurrentrowtoDraw = item
+        PixelnumberDrawer = 0
+        for i in CurrentrowtoDraw:
+            print(i)
+            PixelDrawing = int(i)
+            PixelcolourDrawer = SetcolourGraphicsDrawing(PixelDrawing)
+            if not isinstance(PixelcolourDrawer, tuple) or len(PixelcolourDrawer) != 3:
+                raise ValueError(f"Invalid RGB value returned: {PixelcolourDrawer}")
+            print(PixelcolourDrawer)
+            if PixelcolourDrawer is None:
+                print(f"Warning: No color found for value '{PixelDrawing}'")
+                PixelcolourDrawer = 0
+            # Set the pixel color in the image
+            img.putpixel((PixelnumberDrawer, RownumberDrawer), PixelcolourDrawer)
+            PixelnumberDrawer += 1
+        RownumberDrawer += 1
+    img.save("output_sprite.png")
+if __name__ == "__main__":
+    DrawConsole("videochip/test.txt")
+    SizefinderSpritedrawer("videochip/test.txt")
