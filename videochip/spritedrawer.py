@@ -48,3 +48,4 @@ def DrawConsole(FilepathGraphics):
 if __name__ == "__main__":
     DrawConsole("videochip/test.txt")
     SizefinderSpritedrawer("videochip/test.txt")
+
