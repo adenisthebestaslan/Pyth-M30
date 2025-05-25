@@ -7,14 +7,13 @@ def StrechSprite(SpriteEditing, Times):
     tmp = len(SpriteEdit[0])
     print("tmp:", tmp)
     k = 1
-    for row in SpriteEdit:
+    for index, row in enumerate(SpriteEdit):
         tmp_list = deepcopy(row)
-        for i in range(tmp):
-            for j in range(Times):
-                row.insert(k, tmp_list[i])
-                k += 1
-            k += 1
-        k = 1
+        new_row = []
+        for item in tmp_list:
+            for _ in range(Times):
+                new_row.append(item)
+        SpriteEdit[index] = new_row
         # for j in range(Times):
         #     row.insert(i, row[k])
         #     i += 1
@@ -28,7 +27,7 @@ def StrechSprite(SpriteEditing, Times):
         with open(SpriteEditing, 'a') as file:
             file.write(','.join(row) + '\n')
 def size(SpriteEditing, Times):
-    StrechSprite("videochip/test.txt",Times)
+    StrechSprite("C:/Users/adena/OneDrive/Desktop/Pyth-M20/systemfiles/test.txt",Times)
     # SpriteEditing: 
     SpriteEdit = spritedrawer.GetrownumbersSpritedrawer(SpriteEditing)
     # Only duplicate lists (rows) inside SpriteEdit, not elements within rows
@@ -49,4 +48,4 @@ def size(SpriteEditing, Times):
     # first we will take each row and take each item ex, 10,20, and add however many more times we want to add: ex: 10,10,10 becomes 10,10,10,10,10,10,10,10,10 if we were to size it by 3.
     #aftewards, we'll take each row and add a new item each time.
 
-size("videochip/test.txt",10)
+size("C:/Users/adena/OneDrive/Desktop/Pyth-M20/systemfiles/test.txt",10)
