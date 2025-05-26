@@ -1,9 +1,1 @@
-
-
-
-
-tommorow - 
-fix the draw command
-add 100 colours
-add forground and background
-start sound
+today- work on sprite counter and start the creation of sound chanels
