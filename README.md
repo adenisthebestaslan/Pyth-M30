@@ -1,1 +1,2 @@
-today- work on sprite counter and start the creation of sound chanels
+.today- work on sound
+.
